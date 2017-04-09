@@ -5,7 +5,7 @@
 }
 
 .fail:before {
-	content: "PASS: ";
+	content: "FAIL: ";
 	color: "red";
 	font-weight: "bold";
 }
