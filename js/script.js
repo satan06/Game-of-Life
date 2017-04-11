@@ -3,7 +3,7 @@ var canvas;
 var context;
 var height = 0;
 var width = 0;
-var m = matrixArray(54, 32);
+var m = matrixArray(20, 20);
 
 window.onload = function() 
 {
@@ -30,18 +30,45 @@ function AddLife(event)
     var x = event.pageX - canvas.offsetLeft;
     var y = event.pageY - canvas.offsetTop;
 
-    var r = 0;
-    var c = 0;
+    var row = 0;
+    var colum = 0;
 
     while (y > 25) {
-        r++;
+        row++;
+        y -= 25;
     }
 
     while (x > 25) {
-        c++;
+        colum++;
+        x -= 25;
     }
 
-    m[r][c] = 1;
+    m[row][colum] = 1;
+
+    TestMatrix(m);
+}
+
+function TestMatrix(m) 
+{
+    for (var i = 0; i < 20; i++) {
+        for (var j = 0; j < 20; j++) {
+            if (m[i][j] == 1) {
+                draw(i, j);
+            }
+        }
+    }
+}
+
+function draw(row, colum)
+{
+    row *= 25;
+    colum *= 25;
+
+    context.fillStyle = "#388eea";
+    context.beginPath();
+    context.rect(colum, row, 25, 25);
+    context.closePath();
+    context.fill();
 }
 
 function interface()
