@@ -3,12 +3,45 @@ var canvas;
 var context;
 var height = 0;
 var width = 0;
+var m = matrixArray(54, 32);
 
 window.onload = function() 
 {
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
     interface();
+    canvas.onmousedown = AddLife;
+}
+
+function matrixArray(rows,columns)
+{
+    var arr = new Array();
+    for(var i = 0; i < columns; i++){
+        arr[i] = new Array();
+        for(var j = 0; j < rows; j++){
+            arr[i][j] = 0;
+        }
+    }
+  return arr;
+}
+
+function AddLife(event) 
+{
+    var x = event.pageX - canvas.offsetLeft;
+    var y = event.pageY - canvas.offsetTop;
+
+    var r = 0;
+    var c = 0;
+
+    while (y > 25) {
+        r++;
+    }
+
+    while (x > 25) {
+        c++;
+    }
+
+    m[r][c] = 1;
 }
 
 function interface()
