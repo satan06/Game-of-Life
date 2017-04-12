@@ -16,9 +16,9 @@ window.onload = function()
 function matrixArray(rows,columns)
 {
     var arr = new Array();
-    for(var i = 0; i < columns; i++){
+    for(var i = 0; i < columns; i++) {
         arr[i] = new Array();
-        for(var j = 0; j < rows; j++){
+        for(var j = 0; j < rows; j++) {
             arr[i][j] = 0;
         }
     }
@@ -42,13 +42,30 @@ function AddLife(event)
         colum++;
         x -= 25;
     }
-
-    m[row][colum] = 1;
-
-    TestMatrix(m);
+    if (event.which == 1) {
+        if (m[row][colum] == 0) {
+            m[row][colum] = 1;
+            TestMatrix(m);
+        } else {
+            if (m[row][colum] == 1) {
+                Death(row, colum);
+            }
+        }
+    }
 }
 
-function TestMatrix(m) 
+function Death(row, colum)
+{
+    m[row][colum] = 0;
+
+    row *= 25;
+    colum *= 25;
+
+    context.clearRect(colum + 1, row + 1, 23, 23);
+    
+}
+
+function TestMatrix(m, cursor) 
 {
     for (var i = 0; i < 20; i++) {
         for (var j = 0; j < 20; j++) {
@@ -66,7 +83,7 @@ function draw(row, colum)
 
     context.fillStyle = "#388eea";
     context.beginPath();
-    context.rect(colum, row, 25, 25);
+    context.rect(colum + 1, row + 1, 23, 23);
     context.closePath();
     context.fill();
 }
