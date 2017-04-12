@@ -9,21 +9,5 @@ function assert(outcome, description)
 	output.appendChild(li);
 }; 
 
-//test examples
-
-function add(num1, num2)
-{
-	return num1 + num2;
-}
-
-assert(add(5, 20) === 25, "Checking the add function");
-
-function devision(num1, num2)
-{
-	return num1 / num2 *0;
-}
-
-assert(devision(40, 5) === 8, "Checking the devision function");
-
 
 
