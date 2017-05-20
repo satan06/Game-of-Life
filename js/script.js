@@ -3,6 +3,7 @@ var canvas;
 var context;
 var height = 0;
 var width = 0;
+var status = 0;
 
 var m = matrixArray(20, 20);
 
@@ -48,16 +49,16 @@ function AddLife(event)
     if (event.which == 1) {
         if (m[row][colum] == 0) {
             m[row][colum] = 1;
-            TestMatrix_draw(m);
+            TestMatrix_draw();
         } else {
             if (m[row][colum] == 1) {
-                Death(row, colum, m);
+                Death_click(row, colum, m);
             }
         }
     }
 }
 
-function Death(row, colum, m)
+function Death_click(row, colum, m)
 {
     m[row][colum] = 0;
 
@@ -68,7 +69,7 @@ function Death(row, colum, m)
     
 }
 
-function TestMatrix_draw(m) 
+function TestMatrix_draw() 
 {
     for (var i = 0; i < 20; i++) {
         for (var j = 0; j < 20; j++) {
@@ -91,7 +92,7 @@ function draw(row, colum)
     context.fill();
 }
 
-function Start_Life(m)
+function Start_Life()
 {
     var t = 0;
     var i, i_1;
@@ -101,13 +102,13 @@ function Start_Life(m)
         for ( j = 0; j < 20; j++) {
             if (m[i][j] == 0) {
                 if (i >= 0 && j == 0) {
-                    if (i == 0) {
+                    if (i == 0 && j == 0) {
                         if (m[i][j + 1] == 1 && m[i + 1][j] == 1 && m[i + 1][j + 1] == 1) {
                             t = 3;
                         }
                     }
 
-                    if (i == 19) {
+                    if (i == 19 && j == 0) {
                         if (m[i][j + 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j + 1] == 1) {
                             t = 3;
                         }
@@ -290,10 +291,247 @@ function Start_Life(m)
 
                 if (t == 3) {
                     m[i][j] == 2;
-                    alert(i);
                 }
             }
+
+            t = 0;
         }
+    }
+}
+
+function Death_Generation() 
+{
+    var t = 0;
+    var i, i_1;
+    var j, j_1;
+
+    for ( i = 0; i < 20; i++) {
+        for ( j = 0; j < 20; j++) {
+            if (m[i][j] == 1) {
+                if (i >= 0 && j == 0) {
+                    if (i == 0 && j == 0) {
+                        if ((m[i][j + 1] == 1 || m[i][j + 1] == 2) && (m[i + 1][j] == 1 || m[i + 1][j] == 2) && (m[i + 1][j + 1] == 1 || m[i + 1][j + 1] == 2)) {
+                            t = 3;
+                        }
+                    }
+
+                    if (i == 19 && j == 0) {
+                        if ((m[i][j + 1] == 1 || m[i][j + 1] == 2) && (m[i - 1][j] == 1 || m[i - 1][j] == 2) && (m[i - 1][j + 1] == 1 || m[i - 1][j + 1] == 2)) {
+                            t = 3;
+                        }
+                    }
+
+                    if (i > 0 && i < 19) {
+                        for ( i_1 = -1; i_1 <= 1; i_1++) {
+                            if (i_1 == -1) {
+                                for (j_1 = 0; j_1 <=1; j_1++) {
+                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                        t++;
+                                    }
+                                }
+                            }
+
+                            if (i_1 == 0) {
+                                if (m[i][j + 1] == 1 || m[i][j + 1] == 2) {
+                                    t++;
+                                }
+                            }
+
+                            if (i_1 == 1) {
+                                for (j_1 = 0; j_1 <=1; j_1++) {
+                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                        t++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (i >= 0 && j == 19) {
+                    if (i == 0) {
+                        if ((m[i][j - 1] == 1 || m[i][j - 1] == 2) && (m[i - 1][j] == 1 || m[i - 1][j] == 2) && (m[i - 1][j + 1] == 1 || m[i - 1][j + 1] == 2)) {
+                            t = 3;
+                        }
+                    }
+
+                    if (i == 19) {
+                        if ((m[i][j - 1] == 1 || m[i][j - 1] == 2) && (m[i - 1][j] == 1 || m[i - 1][j] == 2) && (m[i - 1][j - 1] == 1 || m[i - 1][j - 1] == 2)) {
+                            t = 3;
+                        }
+                    }
+
+                    if (i > 0 && i < 19) {
+                        for ( i_1 = -1; i_1 <= 1; i_1++) {
+                            if (i_1 == -1) {
+                                for (j_1 = 0; j_1 <=1; j_1++) {
+                                    if (m[i + i_1][j - j_1] == 1 || m[i + i_1][j - j_1] == 2) {
+                                        t++;
+                                    }
+                                }
+                            }
+
+                            if (i_1 == 0) {
+                                if (m[i][j - 1] == 1 || m[i][j - 1] == 2) {
+                                    t++;
+                                }
+                            }
+
+                            if (i_1 == 1) {
+                                for (j_1 = 0; j_1 <=1; j_1++) {
+                                    if (m[i + i_1][j - j_1] == 1 || m[i + i_1][j - j_1] == 2) {
+                                        t++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (i == 0 && j >= 0) {
+                    if (j == 0) {
+                        if ((m[i][j + 1] == 1 || m[i][j + 1] == 2) && (m[i + 1][j] == 1 || m[i + 1][j] == 2) && (m[i + 1][j + 1] == 1 || m[i + 1][j + 1] == 2)) {
+                            t = 3;
+                        }
+                    }
+
+                    if (j == 19) {
+                        if ((m[i][j - 1] == 1 || m[i][j - 1] == 2) && (m[i + 1][j] == 1 || m[i + 1][j] == 2) && (m[i - 1][j - 1] == 1 || m[i - 1][j - 1] == 2)) {
+                            t = 3;
+                        }
+                    }
+
+                    if (j > 0 && j < 19) {
+                        for ( j_1 = -1; j_1 <= 1; j_1++) {
+                            if (j_1 == -1) {
+                                for (i_1 = 0; i_1 <=1; i_1++) {
+                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                        t++;
+                                    }
+                                }
+                            }
+
+                            if (j_1 == 0) {
+                                if (m[i + 1][j] == 1 || m[i + 1][j] == 2) {
+                                    t++;
+                                }
+                            }
+
+                            if (j_1 == 1) {
+                                for (i_1 = 0; i_1 <=1; i_1++) {
+                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                        t++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (i == 19 && j >= 0) {
+                    if (j == 0) {
+                        if ((m[i][j + 1] == 1 || m[i][j + 1] == 2) && (m[i - 1][j] == 1 || m[i - 1][j] == 2) && (m[i - 1][j + 1] == 1 || m[i - 1][j + 1] == 2)) {
+                            t = 3;
+                        }
+                    }
+
+                    if (j == 19) {
+                        if ((m[i][j - 1] == 1 || m[i][j - 1] == 2) && (m[i - 1][j] == 1 || m[i - 1][j] == 2) && (m[i - 1][j - 1] == 1 || m[i - 1][j - 1] == 2)) {
+                            t = 3;
+                        }
+                    }
+
+                    if (j > 0 && j < 19) {
+                        for ( j_1 = -1; j_1 <= 1; j_1++) {
+                            if (j_1 == -1) {
+                                for (i_1 = 0; i_1 <=1; i_1++) {
+                                    if (m[i - i_1][j + j_1] == 1 || m[i - i_1][j + j_1] == 2) {
+                                        t++;
+                                    }
+                                }
+                            }
+
+                            if (j_1 == 0) {
+                                if (m[i - 1][j] == 1 || m[i - 1][j] == 2) {
+                                    t++;
+                                }
+                            }
+
+                            if (j_1 == 1) {
+                                for (i_1 = 0; i_1 <=1; i_1++) {
+                                    if (m[i - i_1][j + j_1] == 1 || m[i - i_1][j + j_1] == 2) {
+                                        t++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (i > 0 && i < 19 && j > 0 && j < 19) {
+                    for (j_1 = -1; j_1 <= 1; j_1++) {
+                        if (j_1 == -1) {
+                            for (i_1 = -1; i_1 <= 1; i_1++) {
+                                if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                    t++;
+                                }
+                            }
+                        }
+
+                        if (j_1 == 0) {
+                            for (i_1 = -1; i_1 <= 1; i_1 += 2) {
+                                if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                    t++;
+                                }
+                            }
+                        }
+
+                        if (j_1 == 1) {
+                            for (i_1 = -1; i_1 <= 1; i_1++) {
+                                if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                    t++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (t < 2 || t > 3) {
+                    m[i][j] == 0;
+                }
+            }
+
+            t = 0;
+        }
+    }
+}
+
+function Swap_number()
+{
+    var i, j;
+
+    for (i = 0; i < 20; i++) {
+        for (j = 0; j < 20; j++) {
+            if (m[i][j] == 2) {
+                m[i][j] = 1;
+            }
+        }
+    }
+}
+
+function Stop() {
+    status = 0;
+}
+
+function Start() 
+{
+    status = 1;
+
+    while (status == 1) {
+        Start_Life();
+        Death_Generation();
+        Swap_number();
+        TestMatrix_draw();
     }
 }
 
