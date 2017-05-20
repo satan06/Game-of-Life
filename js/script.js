@@ -3,6 +3,7 @@ var canvas;
 var context;
 var height = 0;
 var width = 0;
+
 var m = matrixArray(20, 20);
 
 window.onload = function() 
@@ -13,7 +14,7 @@ window.onload = function()
     canvas.onmousedown = AddLife;
 }
 
-function matrixArray(rows,columns)
+function matrixArray(rows, columns)
 {
     var arr = new Array();
     for(var i = 0; i < columns; i++) {
@@ -22,7 +23,8 @@ function matrixArray(rows,columns)
             arr[i][j] = 0;
         }
     }
-  return arr;
+
+    return arr;
 }
 
 function AddLife(event) 
@@ -42,19 +44,20 @@ function AddLife(event)
         colum++;
         x -= 25;
     }
+
     if (event.which == 1) {
         if (m[row][colum] == 0) {
             m[row][colum] = 1;
-            TestMatrix(m);
+            TestMatrix_draw(m);
         } else {
             if (m[row][colum] == 1) {
-                Death(row, colum);
+                Death(row, colum, m);
             }
         }
     }
 }
 
-function Death(row, colum)
+function Death(row, colum, m)
 {
     m[row][colum] = 0;
 
@@ -65,7 +68,7 @@ function Death(row, colum)
     
 }
 
-function TestMatrix(m, cursor) 
+function TestMatrix_draw(m) 
 {
     for (var i = 0; i < 20; i++) {
         for (var j = 0; j < 20; j++) {
@@ -86,6 +89,212 @@ function draw(row, colum)
     context.rect(colum + 1, row + 1, 23, 23);
     context.closePath();
     context.fill();
+}
+
+function Start_Life(m)
+{
+    var t = 0;
+    var i, i_1;
+    var j, j_1;
+
+    for ( i = 0; i < 20; i++) {
+        for ( j = 0; j < 20; j++) {
+            if (m[i][j] == 0) {
+                if (i >= 0 && j == 0) {
+                    if (i == 0) {
+                        if (m[i][j + 1] == 1 && m[i + 1][j] == 1 && m[i + 1][j + 1] == 1) {
+                            t = 3;
+                        }
+                    }
+
+                    if (i == 19) {
+                        if (m[i][j + 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j + 1] == 1) {
+                            t = 3;
+                        }
+                    }
+
+                    if (i > 0 && i < 19) {
+                        for ( i_1 = -1; i_1 <= 1; i_1++) {
+                            if (i_1 == -1) {
+                                for (j_1 = 0; j_1 <=1; j_1++) {
+                                    if (m[i + i_1][j + j_1] == 1) {
+                                        t++;
+                                    }
+                                }
+                            }
+
+                            if (i_1 == 0) {
+                                if (m[i][j + 1] == 1) {
+                                    t++;
+                                }
+                            }
+
+                            if (i_1 == 1) {
+                                for (j_1 = 0; j_1 <=1; j_1++) {
+                                    if (m[i + i_1][j + j_1] == 1) {
+                                        t++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (i >= 0 && j == 19) {
+                    if (i == 0) {
+                        if (m[i][j - 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j + 1] == 1) {
+                            t = 3;
+                        }
+                    }
+
+                    if (i == 19) {
+                        if (m[i][j - 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j - 1] == 1) {
+                            t = 3;
+                        }
+                    }
+
+                    if (i > 0 && i < 19) {
+                        for ( i_1 = -1; i_1 <= 1; i_1++) {
+                            if (i_1 == -1) {
+                                for (j_1 = 0; j_1 <=1; j_1++) {
+                                    if (m[i + i_1][j - j_1] == 1) {
+                                        t++;
+                                    }
+                                }
+                            }
+
+                            if (i_1 == 0) {
+                                if (m[i][j - 1] == 1) {
+                                    t++;
+                                }
+                            }
+
+                            if (i_1 == 1) {
+                                for (j_1 = 0; j_1 <=1; j_1++) {
+                                    if (m[i + i_1][j - j_1] == 1) {
+                                        t++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (i == 0 && j >= 0) {
+                    if (j == 0) {
+                        if (m[i][j + 1] == 1 && m[i + 1][j] == 1 && m[i + 1][j + 1] == 1) {
+                            t = 3;
+                        }
+                    }
+
+                    if (j == 19) {
+                        if (m[i][j - 1] == 1 && m[i + 1][j] == 1 && m[i - 1][j - 1] == 1) {
+                            t = 3;
+                        }
+                    }
+
+                    if (j > 0 && j < 19) {
+                        for ( j_1 = -1; j_1 <= 1; j_1++) {
+                            if (j_1 == -1) {
+                                for (i_1 = 0; i_1 <=1; i_1++) {
+                                    if (m[i + i_1][j + j_1] == 1) {
+                                        t++;
+                                    }
+                                }
+                            }
+
+                            if (j_1 == 0) {
+                                if (m[i + 1][j] == 1) {
+                                    t++;
+                                }
+                            }
+
+                            if (j_1 == 1) {
+                                for (i_1 = 0; i_1 <=1; i_1++) {
+                                    if (m[i + i_1][j + j_1] == 1) {
+                                        t++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (i == 19 && j >= 0) {
+                    if (j == 0) {
+                        if (m[i][j + 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j + 1] == 1) {
+                            t = 3;
+                        }
+                    }
+
+                    if (j == 19) {
+                        if (m[i][j - 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j - 1] == 1) {
+                            t = 3;
+                        }
+                    }
+
+                    if (j > 0 && j < 19) {
+                        for ( j_1 = -1; j_1 <= 1; j_1++) {
+                            if (j_1 == -1) {
+                                for (i_1 = 0; i_1 <=1; i_1++) {
+                                    if (m[i - i_1][j + j_1] == 1) {
+                                        t++;
+                                    }
+                                }
+                            }
+
+                            if (j_1 == 0) {
+                                if (m[i - 1][j] == 1) {
+                                    t++;
+                                }
+                            }
+
+                            if (j_1 == 1) {
+                                for (i_1 = 0; i_1 <=1; i_1++) {
+                                    if (m[i - i_1][j + j_1] == 1) {
+                                        t++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (i > 0 && i < 19 && j > 0 && j < 19) {
+                    for (j_1 = -1; j_1 <= 1; j_1++) {
+                        if (j_1 == -1) {
+                            for (i_1 = -1; i_1 <= 1; i_1++) {
+                                if (m[i + i_1][j + j_1] == 1) {
+                                    t++;
+                                }
+                            }
+                        }
+
+                        if (j_1 == 0) {
+                            for (i_1 = -1; i_1 <= 1; i_1 += 2) {
+                                if (m[i + i_1][j + j_1] == 1) {
+                                    t++;
+                                }
+                            }
+                        }
+
+                        if (j_1 == 1) {
+                            for (i_1 = -1; i_1 <= 1; i_1++) {
+                                if (m[i + i_1][j + j_1] == 1) {
+                                    t++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (t == 3) {
+                    m[i][j] == 2;
+                    alert(i);
+                }
+            }
+        }
+    }
 }
 
 function interface()
