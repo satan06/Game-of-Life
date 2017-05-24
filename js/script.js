@@ -59,7 +59,7 @@ function AddLife(event)
             TestMatrix_draw();
         } else {
             if (m[row][colum] == 1) {
-                Death_click(row, colum, m);
+                Death_click(row, colum);
             }
         }
     }
@@ -114,14 +114,30 @@ function Start_Life()
             if (m[i][j] == 0) {
                 if (i >= 0 && j == 0) {
                     if (i == 0 && j == 0) {
-                        if (m[i][j + 1] == 1 && m[i + 1][j] == 1 && m[i + 1][j + 1] == 1) {
-                            t = 3;
+                        if (m[i][j + 1] == 1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j] == 1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j + 1] == 1) {
+                            t++;
                         }
                     }
 
                     if (i == (cell_y - 1) && j == 0) {
-                        if (m[i][j + 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j + 1] == 1) {
-                            t = 3;
+                        if (m[i][j + 1] == 1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j] == 1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j + 1] == 1) {
+                            t++;
                         }
                     }
 
@@ -154,14 +170,30 @@ function Start_Life()
 
                 if (i >= 0 && j == (cell_x - 1)) {
                     if (i == 0) {
-                        if (m[i][j - 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j + 1] == 1) {
-                            t = 3;
+                        if (m[i][j - 1] == 1) {
+                            t++;
+                        }
+                        
+                        if (m[i + 1][j] == 1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j + 1] == 1) {
+                            t++;
                         }
                     }
 
                     if (i == (cell_y - 1)) {
-                        if (m[i][j - 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j - 1] == 1) {
-                            t = 3;
+                        if (m[i][j - 1] == 1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j] == 1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j - 1] == 1) {
+                            t++;
                         }
                     }
 
@@ -194,14 +226,30 @@ function Start_Life()
 
                 if (i == 0 && j >= 0) {
                     if (j == 0) {
-                        if (m[i][j + 1] == 1 && m[i + 1][j] == 1 && m[i + 1][j + 1] == 1) {
-                            t = 3;
+                        if (m[i][j + 1] == 1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j] == 1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j + 1] == 1) {
+                            t++;
                         }
                     }
 
                     if (j == (cell_x - 1)) {
-                        if (m[i][j - 1] == 1 && m[i + 1][j] == 1 && m[i - 1][j - 1] == 1) {
-                            t = 3;
+                        if (m[i][j - 1] == 1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j] == 1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j - 1] == 1) {
+                            t++;
                         }
                     }
 
@@ -234,14 +282,30 @@ function Start_Life()
 
                 if (i == (cell_y - 1) && j >= 0) {
                     if (j == 0) {
-                        if (m[i][j + 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j + 1] == 1) {
-                            t = 3;
+                        if (m[i][j + 1] == 1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j] == 1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j + 1] == 1) {
+                            t++;
                         }
                     }
 
                     if (j == (cell_x - 1)) {
-                        if (m[i][j - 1] == 1 && m[i - 1][j] == 1 && m[i - 1][j - 1] == 1) {
-                            t = 3;
+                        if (m[i][j - 1] == 1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j] == 1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j - 1] == 1) {
+                            t++;
                         }
                     }
 
@@ -272,7 +336,7 @@ function Start_Life()
                     }
                 }
 
-                if (i > 0 && i < (cell_y - 1) && j > 0 && j < (cell_y - 1)) {
+                if (i > 0 && i < (cell_y - 1) && j > 0 && j < (cell_x - 1)) {
                     for (j_1 = -1; j_1 <= 1; j_1++) {
                         if (j_1 == -1) {
                             for (i_1 = -1; i_1 <= 1; i_1++) {
@@ -301,7 +365,7 @@ function Start_Life()
                 }
 
                 if (t == 3) {
-                    m[i][j] = 1;
+                    m[i][j] = 2;
                 }
             }
             t = 0;
@@ -320,14 +384,30 @@ function Death_Generation()
             if (m[i][j] == 1) {
                 if (i >= 0 && j == 0) {
                     if (i == 0 && j == 0) {
-                        if ((m[i][j + 1] == 1 || m[i][j + 1] == 2) && (m[i + 1][j] == 1 || m[i + 1][j] == 2) && (m[i + 1][j + 1] == 1 || m[i + 1][j + 1] == 2)) {
-                            t = 3;
+                        if (m[i][j + 1] == 1 || m[i][j + 1] == -1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j] == 1 || m[i + 1][j] == -1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j + 1] == 1 || m[i + 1][j + 1] == -1) {
+                            t++;
                         }
                     }
 
                     if (i == (cell_y - 1) && j == 0) {
-                        if ((m[i][j + 1] == 1 || m[i][j + 1] == 2) && (m[i - 1][j] == 1 || m[i - 1][j] == 2) && (m[i - 1][j + 1] == 1 || m[i - 1][j + 1] == 2)) {
-                            t = 3;
+                        if (m[i][j + 1] == 1 || m[i][j + 1] == -1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j] == 1 || m[i - 1][j] == -1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j + 1] == 1 || m[i - 1][j + 1] == -1) {
+                            t++;
                         }
                     }
 
@@ -335,21 +415,21 @@ function Death_Generation()
                         for ( i_1 = -1; i_1 <= 1; i_1++) {
                             if (i_1 == -1) {
                                 for (j_1 = 0; j_1 <=1; j_1++) {
-                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == -1) {
                                         t++;
                                     }
                                 }
                             }
 
                             if (i_1 == 0) {
-                                if (m[i][j + 1] == 1 || m[i][j + 1] == 2) {
+                                if (m[i][j + 1] == 1 || m[i][j + 1] == -1) {
                                     t++;
                                 }
                             }
 
                             if (i_1 == 1) {
                                 for (j_1 = 0; j_1 <=1; j_1++) {
-                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == -1) {
                                         t++;
                                     }
                                 }
@@ -360,14 +440,30 @@ function Death_Generation()
 
                 if (i >= 0 && j == (cell_x - 1)) {
                     if (i == 0) {
-                        if ((m[i][j - 1] == 1 || m[i][j - 1] == 2) && (m[i - 1][j] == 1 || m[i - 1][j] == 2) && (m[i - 1][j + 1] == 1 || m[i - 1][j + 1] == 2)) {
-                            t = 3;
+                        if (m[i][j - 1] == 1 || m[i][j - 1] == -1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j] == 1 || m[i + 1][j] == -1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j + 1] == 1 || m[i + 1][j + 1] == -1) {
+                            t++;
                         }
                     }
 
                     if (i == (cell_y - 1)) {
-                        if ((m[i][j - 1] == 1 || m[i][j - 1] == 2) && (m[i - 1][j] == 1 || m[i - 1][j] == 2) && (m[i - 1][j - 1] == 1 || m[i - 1][j - 1] == 2)) {
-                            t = 3;
+                        if (m[i][j - 1] == 1 || m[i][j - 1] == -1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j] == 1 || m[i - 1][j] == -1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j - 1] == 1 || m[i - 1][j - 1] == -1) {
+                            t++;
                         }
                     }
 
@@ -375,21 +471,21 @@ function Death_Generation()
                         for ( i_1 = -1; i_1 <= 1; i_1++) {
                             if (i_1 == -1) {
                                 for (j_1 = 0; j_1 <=1; j_1++) {
-                                    if (m[i + i_1][j - j_1] == 1 || m[i + i_1][j - j_1] == 2) {
+                                    if (m[i + i_1][j - j_1] == 1 || m[i + i_1][j - j_1] == -1) {
                                         t++;
                                     }
                                 }
                             }
 
                             if (i_1 == 0) {
-                                if (m[i][j - 1] == 1 || m[i][j - 1] == 2) {
+                                if (m[i][j - 1] == 1 || m[i][j - 1] == -1) {
                                     t++;
                                 }
                             }
 
                             if (i_1 == 1) {
                                 for (j_1 = 0; j_1 <=1; j_1++) {
-                                    if (m[i + i_1][j - j_1] == 1 || m[i + i_1][j - j_1] == 2) {
+                                    if (m[i + i_1][j - j_1] == 1 || m[i + i_1][j - j_1] == -1) {
                                         t++;
                                     }
                                 }
@@ -400,14 +496,30 @@ function Death_Generation()
 
                 if (i == 0 && j >= 0) {
                     if (j == 0) {
-                        if ((m[i][j + 1] == 1 || m[i][j + 1] == 2) && (m[i + 1][j] == 1 || m[i + 1][j] == 2) && (m[i + 1][j + 1] == 1 || m[i + 1][j + 1] == 2)) {
-                            t = 3;
+                        if (m[i][j + 1] == 1 || m[i][j + 1] == -1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j] == 1 || m[i + 1][j] == -1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j + 1] == 1 || m[i + 1][j + 1] == -1) {
+                            t++;
                         }
                     }
 
                     if (j == (cell_x - 1)) {
-                        if ((m[i][j - 1] == 1 || m[i][j - 1] == 2) && (m[i + 1][j] == 1 || m[i + 1][j] == 2) && (m[i - 1][j - 1] == 1 || m[i - 1][j - 1] == 2)) {
-                            t = 3;
+                        if (m[i][j - 1] == 1 || m[i][j - 1] == -1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j] == 1 || m[i + 1][j] == -1) {
+                            t++;
+                        }
+
+                        if (m[i + 1][j - 1] == 1 || m[i + 1][j - 1] == -1) {
+                            t++;
                         }
                     }
 
@@ -415,21 +527,21 @@ function Death_Generation()
                         for ( j_1 = -1; j_1 <= 1; j_1++) {
                             if (j_1 == -1) {
                                 for (i_1 = 0; i_1 <=1; i_1++) {
-                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == -1) {
                                         t++;
                                     }
                                 }
                             }
 
                             if (j_1 == 0) {
-                                if (m[i + 1][j] == 1 || m[i + 1][j] == 2) {
+                                if (m[i + 1][j] == 1 || m[i + 1][j] == -1) {
                                     t++;
                                 }
                             }
 
                             if (j_1 == 1) {
                                 for (i_1 = 0; i_1 <=1; i_1++) {
-                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                    if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == -1) {
                                         t++;
                                     }
                                 }
@@ -440,14 +552,30 @@ function Death_Generation()
 
                 if (i == (cell_y - 1) && j >= 0) {
                     if (j == 0) {
-                        if ((m[i][j + 1] == 1 || m[i][j + 1] == 2) && (m[i - 1][j] == 1 || m[i - 1][j] == 2) && (m[i - 1][j + 1] == 1 || m[i - 1][j + 1] == 2)) {
-                            t = 3;
+                        if (m[i][j + 1] == 1 || m[i][j + 1] == -1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j] == 1 || m[i - 1][j] == -1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j + 1] == 1 || m[i - 1][j + 1] == -1) {
+                            t++;
                         }
                     }
 
                     if (j == (cell_x - 1)) {
-                        if ((m[i][j - 1] == 1 || m[i][j - 1] == 2) && (m[i - 1][j] == 1 || m[i - 1][j] == 2) && (m[i - 1][j - 1] == 1 || m[i - 1][j - 1] == 2)) {
-                            t = 3;
+                        if (m[i][j - 1] == 1 || m[i][j - 1] == -1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j] == 1 || m[i - 1][j] == -1) {
+                            t++;
+                        }
+
+                        if (m[i - 1][j - 1] == 1 || m[i - 1][j - 1] == -1) {
+                            t++;
                         }
                     }
 
@@ -455,21 +583,21 @@ function Death_Generation()
                         for ( j_1 = -1; j_1 <= 1; j_1++) {
                             if (j_1 == -1) {
                                 for (i_1 = 0; i_1 <=1; i_1++) {
-                                    if (m[i - i_1][j + j_1] == 1 || m[i - i_1][j + j_1] == 2) {
+                                    if (m[i - i_1][j + j_1] == 1 || m[i - i_1][j + j_1] == -1) {
                                         t++;
                                     }
                                 }
                             }
 
                             if (j_1 == 0) {
-                                if (m[i - 1][j] == 1 || m[i - 1][j] == 2) {
+                                if (m[i - 1][j] == 1 || m[i - 1][j] == -1) {
                                     t++;
                                 }
                             }
 
                             if (j_1 == 1) {
                                 for (i_1 = 0; i_1 <=1; i_1++) {
-                                    if (m[i - i_1][j + j_1] == 1 || m[i - i_1][j + j_1] == 2) {
+                                    if (m[i - i_1][j + j_1] == 1 || m[i - i_1][j + j_1] == -1) {
                                         t++;
                                     }
                                 }
@@ -482,7 +610,7 @@ function Death_Generation()
                     for (j_1 = -1; j_1 <= 1; j_1++) {
                         if (j_1 == -1) {
                             for (i_1 = -1; i_1 <= 1; i_1++) {
-                                if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == -1) {
                                     t++;
                                 }
                             }
@@ -490,7 +618,7 @@ function Death_Generation()
 
                         if (j_1 == 0) {
                             for (i_1 = -1; i_1 <= 1; i_1 += 2) {
-                                if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == -1) {
                                     t++;
                                 }
                             }
@@ -498,7 +626,7 @@ function Death_Generation()
 
                         if (j_1 == 1) {
                             for (i_1 = -1; i_1 <= 1; i_1++) {
-                                if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == 2) {
+                                if (m[i + i_1][j + j_1] == 1 || m[i + i_1][j + j_1] == -1) {
                                     t++;
                                 }
                             }
@@ -507,15 +635,13 @@ function Death_Generation()
                 }
 
                 if (t < 2 || t > 3) {
-                    m[i][j] = 0;
+                    m[i][j] = -1;
                 }
             }
 
             t = 0;
         }
     }
-
-    //return m;
 }
 
 function Stop()
@@ -526,22 +652,28 @@ function Stop()
 function Start() 
 {
     status = 1;
+}
 
-    /*while (status == 1) {
-        Start_Life();
-        Death_Generation();
-        Swap_number();
-        interface();
-        TestMatrix_draw();
-    }*/
+function Swap_number()
+{
+    for (var i = 0; i < cell_y; i++) {
+       for (var j = 0; j < cell_x; j++) {
+            if (m[i][j] == 2) {
+                m[i][j] = 1;
+            }
+
+            if (m[i][j] == -1) {
+                m[i][j] = 0;
+            }
+        }
+    }
 }
 
 function Random_Life()
 {
-    //context.clearRect(0, 0, 500, 500);
     for (var i = 0; i < cell_y; i++) {
        for (var j = 0; j < cell_x; j++) {
-            m[i][j] = getRandomInt(-1, 2);         
+            m[i][j] = getRandomInt(0, 2);         
         }
     }
 
@@ -561,10 +693,10 @@ setInterval(function () {
     if (status == 1) {
         Start_Life();
         Death_Generation();
-        interface();
+        Swap_number();
         TestMatrix_draw();
     }
-}, 50);
+}, 500);
 
 function interface()
 {
