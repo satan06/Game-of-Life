@@ -685,15 +685,6 @@ function Random_Life()
     TestMatrix_draw();
 }
 
-function r_l_0()
-{
-    for (var i = 0; i < cell_y; i++) {
-        for (var j = 0; j < cell_x; j++) {
-            m[i][j] = 0;         
-        }
-    }
-}
-
 setInterval(function () {
     if (status == 1) {
         Start_Life();
@@ -701,7 +692,7 @@ setInterval(function () {
         Swap_number();
         TestMatrix_draw();
     }
-}, 500);
+}, 50);
 
 function interface()
 {
