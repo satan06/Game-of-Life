@@ -2,3 +2,14 @@ canvas {
 	background: #efefef;
 	border: #000 solid 2px;
 }
+
+.button {
+ 	background: #4286f4; 
+ 	padding: 5px;
+ 	color: #ffe;
+ 	border-radius: 3px;
+}
+
+.button:hover {
+ 	background: #66a0ff; 
+}
