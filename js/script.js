@@ -15,6 +15,10 @@ window.onload = function()
     canvas.onmousedown = AddLife;
 }
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function matrixArray(rows, columns)
 {
     var arr = new Array();
@@ -58,7 +62,7 @@ function AddLife(event)
     }
 }
 
-function Death_click(row, colum, m)
+function Death_click(row, colum)
 {
     m[row][colum] = 0;
 
@@ -75,6 +79,10 @@ function TestMatrix_draw()
         for (var j = 0; j < 20; j++) {
             if (m[i][j] == 1) {
                 draw(i, j);
+            }
+
+            if (m[i][j] == 0) {
+                Death_click(i, j);
             }
         }
     }
@@ -95,11 +103,11 @@ function draw(row, colum)
 function Start_Life()
 {
     var t = 0;
-    var i, i_1;
-    var j, j_1;
+    var i = 0, i_1 = 0;
+    var j = 0, j_1 = 0;
 
-    for ( i = 0; i < 20; i++) {
-        for ( j = 0; j < 20; j++) {
+    for (i = 0; i < 20; i++) {
+        for (j = 0; j < 20; j++) {
             if (m[i][j] == 0) {
                 if (i >= 0 && j == 0) {
                     if (i == 0 && j == 0) {
@@ -290,10 +298,9 @@ function Start_Life()
                 }
 
                 if (t == 3) {
-                    m[i][j] == 2;
+                    m[i][j] = 1;
                 }
             }
-
             t = 0;
         }
     }
@@ -497,29 +504,19 @@ function Death_Generation()
                 }
 
                 if (t < 2 || t > 3) {
-                    m[i][j] == 0;
+                    m[i][j] = 0;
                 }
             }
 
             t = 0;
         }
     }
+
+    //return m;
 }
 
-function Swap_number()
+function Stop()
 {
-    var i, j;
-
-    for (i = 0; i < 20; i++) {
-        for (j = 0; j < 20; j++) {
-            if (m[i][j] == 2) {
-                m[i][j] = 1;
-            }
-        }
-    }
-}
-
-function Stop() {
     status = 0;
 }
 
@@ -527,13 +524,44 @@ function Start()
 {
     status = 1;
 
-    while (status == 1) {
+    /*while (status == 1) {
         Start_Life();
         Death_Generation();
         Swap_number();
+        interface();
         TestMatrix_draw();
+    }*/
+}
+
+function Random_Life()
+{
+    //context.clearRect(0, 0, 500, 500);
+    for (var i = 0; i < 20; i++) {
+       for (var j = 0; j < 20; j++) {
+            m[i][j] = getRandomInt(-1, 2);         
+        }
+    }
+
+    TestMatrix_draw();
+}
+
+function r_l_0()
+{
+    for (var i = 0; i < 20; i++) {
+        for (var j = 0; j < 20; j++) {
+            m[i][j] = 0;         
+        }
     }
 }
+
+setInterval(function () {
+    if (status == 1) {
+        Start_Life();
+        Death_Generation();
+        interface();
+        TestMatrix_draw();
+    }
+}, 50);
 
 function interface()
 {
