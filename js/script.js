@@ -7,8 +7,8 @@ var context;
 var height = 0;
 var width = 0;
 var status = 0;
-var cell_x = canvas.width / 25;
-var cell_y = canvas.height / 25;
+var cell_x = canvas.width / 10;
+var cell_y = canvas.height / 10;
 var m = matrixArray(cell_x, cell_y);
 
 
@@ -43,14 +43,14 @@ function AddLife(event)
     var row = 0;
     var colum = 0;
 
-    while (y > 25) {
+    while (y > 10) {
         row++;
-        y -= 25;
+        y -= 10;
     }
 
-    while (x > 25) {
+    while (x > 10) {
         colum++;
-        x -= 25;
+        x -= 10;
     }
 
     if (event.which == 1) {
@@ -69,10 +69,10 @@ function Death_click(row, colum)
 {
     m[row][colum] = 0;
 
-    row *= 25;
-    colum *= 25;
+    row *= 10;
+    colum *= 10;
 
-    context.clearRect(colum + 1, row + 1, 23, 23);
+    context.clearRect(colum + 1, row + 1, 8, 8);
     
 }
 
@@ -93,12 +93,12 @@ function TestMatrix_draw()
 
 function draw(row, colum)
 {
-    row *= 25;
-    colum *= 25;
+    row *= 10;
+    colum *= 10;
 
     context.fillStyle = "#388eea";
     context.beginPath();
-    context.rect(colum + 1, row + 1, 23, 23);
+    context.rect(colum + 1, row + 1, 8, 8);
     context.closePath();
     context.fill();
 }
@@ -644,6 +644,11 @@ function Death_Generation()
     }
 }
 
+function Clear()
+{
+    location.reload();
+}
+
 function Stop()
 {
     status = 0;
@@ -711,12 +716,12 @@ function interface()
             context.beginPath();
             context.strokeStyle = "green"
             context.moveTo(width, height);
-            context.lineTo(width, height + 25);
-            context.lineTo(width + 25, height + 25);
+            context.lineTo(width, height + 10);
+            context.lineTo(width + 10, height + 10);
             context.stroke();
-            width += 25;
+            width += 10;
         }
         width = 0;
-        height += 25;
+        height += 10;
     }
 }
